@@ -21,7 +21,6 @@ class CustomSquareView @JvmOverloads constructor(context: Context, attrs: Attrib
 
     var buttonTouched: (() -> Unit)? = null
     var sliderChanged: ((Int) -> Int)? = null
-    var sliderValue: Int = 0
     var editText: EditText? = null
     var textView: TextView? = null
     var slider: Slider? = null
@@ -31,7 +30,6 @@ class CustomSquareView @JvmOverloads constructor(context: Context, attrs: Attrib
     init {
         val view = LayoutInflater.from(context).inflate(R.layout.square_component_view, this, false)
         val set = ConstraintSet()
-
         addView(view)
         set.clone(this)
         set.match(view, this)
@@ -44,9 +42,8 @@ class CustomSquareView @JvmOverloads constructor(context: Context, attrs: Attrib
 
         slider?.addOnChangeListener(Slider.OnChangeListener {slider, value, fromUser ->
             val result = (value * 100).toInt()
-            Log.d("layonf", "Slider changed: $result")
             textView?.setTextSize(TypedValue.COMPLEX_UNIT_SP, result.toFloat())
-            sliderValue = result
+            sliderChanged?.invoke(result)
         })
 
         button?.setOnClickListener {

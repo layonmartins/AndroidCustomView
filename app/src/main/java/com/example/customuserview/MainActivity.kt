@@ -13,7 +13,7 @@ class MainActivity : AppCompatActivity() {
         val customView : CustomSquareView = findViewById(R.id.constraint_custom)
 
         customView.buttonTouched = {
-            Log.d("layonf", "button touched, slider value: ${customView.sliderValue}")
+            Log.d("layonf", "button touched")
         }
 
         customView.sliderChanged = {
